@@ -1,15 +1,13 @@
 # Use official MySQL image
 FROM mysql:8.0
 
-# Set MySQL root password (admin)
-ENV MYSQL_ROOT_PASSWORD=MyStrongRootPass123!
+# Use environment variables for credentials (set on Render dashboard)
+ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+ENV MYSQL_DATABASE=${MYSQL_DATABASE}
+ENV MYSQL_USER=${MYSQL_USER}
+ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
-# Set a regular database user
-ENV MYSQL_DATABASE=mydatabase
-ENV MYSQL_USER=myuser
-ENV MYSQL_PASSWORD=MyUserPass123!
-
-# Copy your database backup to automatically import it
+# Copy your database backup
 COPY Data.sql /docker-entrypoint-initdb.d/
 
 # Expose MySQL port
